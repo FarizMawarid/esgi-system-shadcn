@@ -46,6 +46,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Combobox } from '@/components/ui/combobox'
 import { toast } from 'sonner'
 import {
   Users,
@@ -120,6 +121,16 @@ export default function ManPowerIndex({
   const [selectedDept, setSelectedDept] = useState(filters.department || 'all')
   const [selectedLine, setSelectedLine] = useState(filters.line || 'all')
   const [perPage, setPerPage] = useState(String(filters.per_page || 15))
+
+  const departmentOptions = [
+    { value: 'all', label: 'All Departments' },
+    ...departments.map((dept) => ({ value: dept, label: dept })),
+  ]
+
+  const lineOptions = [
+    { value: 'all', label: 'All Lines' },
+    ...lines.map((ln) => ({ value: ln, label: ln })),
+  ]
 
   // Modals state
   const [isFormOpen, setIsFormOpen] = useState(false)
@@ -348,19 +359,13 @@ export default function ManPowerIndex({
                 <Label htmlFor="department" className="text-xs text-muted-foreground">
                   Department
                 </Label>
-                <Select value={selectedDept} onValueChange={setSelectedDept}>
-                  <SelectTrigger id="department" className="h-9 text-sm">
-                    <SelectValue placeholder="Select Department" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Departments</SelectItem>
-                    {departments.map((dept) => (
-                      <SelectItem key={dept} value={dept}>
-                        {dept}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Combobox
+                  options={departmentOptions}
+                  value={selectedDept}
+                  onChange={setSelectedDept}
+                  placeholder="Select Department"
+                  searchPlaceholder="Type to search department..."
+                />
               </div>
 
               {/* Line */}
@@ -368,19 +373,13 @@ export default function ManPowerIndex({
                 <Label htmlFor="line" className="text-xs text-muted-foreground">
                   Line
                 </Label>
-                <Select value={selectedLine} onValueChange={setSelectedLine}>
-                  <SelectTrigger id="line" className="h-9 text-sm">
-                    <SelectValue placeholder="Select Line" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Lines</SelectItem>
-                    {lines.map((ln) => (
-                      <SelectItem key={ln} value={ln}>
-                        {ln}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Combobox
+                  options={lineOptions}
+                  value={selectedLine}
+                  onChange={setSelectedLine}
+                  placeholder="Select Line"
+                  searchPlaceholder="Type to search line..."
+                />
               </div>
 
               {/* Filter Buttons */}

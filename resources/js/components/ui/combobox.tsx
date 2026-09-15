@@ -30,6 +30,8 @@ interface ComboboxProps {
   emptyText?: string
   disabled?: boolean
   className?: string
+  popoverClassName?: string
+  modal?: boolean
 }
 
 export function Combobox({
@@ -41,47 +43,60 @@ export function Combobox({
   emptyText = 'No results found.',
   disabled = false,
   className,
+  popoverClassName,
+  modal = false,
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false)
 
   const selectedOption = options.find((opt) => opt.value === value)
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} modal={modal}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
-          className={cn('w-full justify-between font-normal', className)}
+          className={cn(
+            'w-full justify-between font-normal text-left h-9 text-sm px-3',
+            className
+          )}
         >
-          {selectedOption ? selectedOption.label : placeholder}
+          <span className="truncate flex-1">
+            {selectedOption ? selectedOption.label : placeholder}
+          </span>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+      <PopoverContent
+        className={cn('w-[--radix-popover-trigger-width] min-w-[220px] p-0 z-50', popoverClassName)}
+        align="start"
+      >
         <Command>
           <CommandInput placeholder={searchPlaceholder} />
-          <CommandList>
-            <CommandEmpty>{emptyText}</CommandEmpty>
+          <CommandList className="max-h-60 overflow-y-auto">
+            <CommandEmpty className="py-3 text-center text-xs text-muted-foreground">
+              {emptyText}
+            </CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
                 <CommandItem
                   key={option.value}
-                  value={option.label}
+                  value={`${option.label} ${option.value}`}
                   onSelect={() => {
                     onChange?.(option.value)
                     setOpen(false)
                   }}
+                  className="cursor-pointer text-xs sm:text-sm"
                 >
                   <Check
                     className={cn(
-                      'mr-2 h-4 w-4',
+                      'mr-2 h-4 w-4 shrink-0',
                       value === option.value ? 'opacity-100' : 'opacity-0'
                     )}
                   />
-                  {option.label}
+                  <span className="truncate">{option.label}</span>
                 </CommandItem>
               ))}
             </CommandGroup>
