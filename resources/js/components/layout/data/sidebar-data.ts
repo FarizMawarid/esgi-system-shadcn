@@ -56,22 +56,24 @@ export const sidebarData: SidebarData = {
   },
   teams: [
     {
-      name: 'Shadcn Admin',
+      name: 'ESGI System',
       logo: Command,
-      plan: 'Vite + ShadcnUI',
-    },
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
+      plan: 'Garment & WMS Execution',
     },
   ],
   navGroups: [
+    {
+      title: 'Master Data',
+      titleKey: 'nav.master_data',
+      items: [
+        {
+          title: 'Man Power (FTY)',
+          titleKey: 'nav.manpower',
+          url: '/mod-master/manpower',
+          icon: IconUsers,
+        },
+      ],
+    },
     {
       title: 'General',
       titleKey: 'nav.general',
