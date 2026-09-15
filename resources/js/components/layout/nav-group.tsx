@@ -214,12 +214,13 @@ const SidebarMenuCollapsedDropdown = ({
 }
 
 function checkIsActive(href: string, item: NavItem, mainNav = false) {
+  const baseHref = href.split('?')[0]
   return (
-    href === item.url || // /endpint?search=param
-    href.split('?')[0] === item.url || // endpoint
-    !!item?.items?.filter((i) => i.url === href).length || // if child nav is active
+    href === item.url || // /endpoint?search=param
+    baseHref === item.url || // endpoint
+    !!item?.items?.filter((i) => i.url === href || i.url === baseHref).length || // if child nav is active
     (mainNav &&
-      href.split('/')[1] !== '' &&
-      href.split('/')[1] === item?.url?.split('/')[1])
+      baseHref.split('/')[1] !== '' &&
+      baseHref.split('/')[1] === item?.url?.split('/')[1])
   )
 }

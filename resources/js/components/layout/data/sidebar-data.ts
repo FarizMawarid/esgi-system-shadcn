@@ -40,6 +40,7 @@ import {
   IconCurrencyDollar,
   IconTarget,
   IconRepeat,
+  IconBuildingFactory2,
 } from '@tabler/icons-react'
 import {
   AudioWaveform,
@@ -65,18 +66,26 @@ export const sidebarData: SidebarData = {
     {
       title: 'Master Data',
       titleKey: 'nav.master_data',
+      collapsible: true,
       items: [
         {
-          title: 'Man Power (Factory)',
+          title: 'Man Power',
           titleKey: 'nav.manpower',
-          url: '/mod-master/manpower',
           icon: IconUsers,
-        },
-        {
-          title: 'Man Power (Jumper)',
-          titleKey: 'nav.manpower_jumper',
-          url: '/mod-master/manpower-jumper',
-          icon: IconRepeat,
+          items: [
+            {
+              title: 'Man Power (Factory)',
+              titleKey: 'nav.manpower_factory',
+              url: '/mod-master/manpower',
+              icon: IconBuildingFactory2,
+            },
+            {
+              title: 'Man Power (Jumper)',
+              titleKey: 'nav.manpower_jumper',
+              url: '/mod-master/manpower-jumper',
+              icon: IconRepeat,
+            },
+          ],
         },
       ],
     },
