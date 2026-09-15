@@ -14,19 +14,15 @@ export default function SignIn2({
       <div className="min-h-screen w-full bg-[#f4f7fb] flex items-center justify-center p-4 sm:p-6">
         {/* Main Card Container */}
         <div className="w-full max-w-[880px] bg-white rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.06)] border border-slate-100/80 flex flex-col md:flex-row overflow-hidden">
-          
+
           {/* Left Side: Brand Logo */}
           <div className="w-full md:w-1/2 flex items-center justify-center p-8 sm:p-12 md:border-r border-slate-100">
             <div className="flex items-center gap-3 sm:gap-4 select-none">
               <img
                 src="/images/esgi-globe.png"
                 alt="ESGI Globe Logo"
-                className="w-28 h-28 sm:w-36 sm:h-36 object-contain"
+                className="w-28 h-28 sm:w-72 sm:h-72 object-contain"
               />
-              <div className="flex flex-col font-black tracking-tight leading-none text-[#1b74e4]">
-                <span className="text-3xl sm:text-4xl tracking-normal">ESGI</span>
-                <span className="text-3xl sm:text-4xl tracking-normal text-[#2b7cf0]">SYSTEM</span>
-              </div>
             </div>
           </div>
 
