@@ -91,7 +91,7 @@ class ManPowerController extends Controller
 
         ManPower::create($validated);
 
-        return back()->with('success', 'Man Power berhasil ditambahkan.');
+        return back()->with('success', 'Man Power has been successfully added.');
     }
 
     /**
@@ -111,7 +111,7 @@ class ManPowerController extends Controller
 
         $manPower->update($validated);
 
-        return back()->with('success', 'Man Power berhasil diperbarui.');
+        return back()->with('success', 'Man Power has been successfully updated.');
     }
 
     /**
@@ -122,7 +122,7 @@ class ManPowerController extends Controller
         $manPower = ManPower::findOrFail($id);
         $manPower->delete();
 
-        return back()->with('success', 'Man Power berhasil dihapus.');
+        return back()->with('success', 'Man Power has been successfully deleted.');
     }
 
     /**
@@ -130,7 +130,7 @@ class ManPowerController extends Controller
      */
     public function downloadTemplate(): StreamedResponse
     {
-        $headers = ['NIK', 'Nama', 'Department', 'Line', 'UID'];
+        $headers = ['NIK', 'Name', 'Department', 'Line', 'UID'];
         $filename = 'man_power_template.csv';
 
         $callback = function () use ($headers) {
@@ -178,7 +178,7 @@ class ManPowerController extends Controller
         $sheet->setTitle('Man Power Master');
 
         // Header
-        $sheet->fromArray(['No', 'NIK', 'Nama', 'Department', 'Line', 'UID'], null, 'A1');
+        $sheet->fromArray(['No', 'NIK', 'Name', 'Department', 'Line', 'UID'], null, 'A1');
 
         // Styling header
         $headerStyle = [
@@ -250,7 +250,7 @@ class ManPowerController extends Controller
 
                 foreach ($sheetData as $rNum => $rData) {
                     $vals = array_map(fn($v) => strtolower(trim((string)$v)), array_values($rData));
-                    if (in_array('nik', $vals) && in_array('nama', $vals)) {
+                    if ((in_array('nik', $vals)) && (in_array('name', $vals) || in_array('nama', $vals))) {
                         $headerRow = $vals;
                         $dataStart = $rNum + 1;
                         break;
@@ -258,11 +258,14 @@ class ManPowerController extends Controller
                 }
 
                 if (!$headerRow) {
-                    return back()->with('error', 'Format header tidak sesuai. Kolom wajib: NIK, Nama, Department, Line, UID.');
+                    return back()->with('error', 'Invalid header format. Required columns: NIK, Name, Department, Line, UID.');
                 }
 
                 $nikIdx = array_search('nik', $headerRow);
-                $nameIdx = array_search('nama', $headerRow);
+                $nameIdx = array_search('name', $headerRow);
+                if ($nameIdx === false) {
+                    $nameIdx = array_search('nama', $headerRow);
+                }
                 $deptIdx = array_search('department', $headerRow);
                 $lineIdx = array_search('line', $headerRow);
                 $uidIdx = array_search('uid', $headerRow);
@@ -294,7 +297,10 @@ class ManPowerController extends Controller
                 $headers = array_map(fn($h) => strtolower(trim((string)$h)), $headers ?: []);
 
                 $nikIdx = array_search('nik', $headers);
-                $nameIdx = array_search('nama', $headers);
+                $nameIdx = array_search('name', $headers);
+                if ($nameIdx === false) {
+                    $nameIdx = array_search('nama', $headers);
+                }
                 $deptIdx = array_search('department', $headers);
                 $lineIdx = array_search('line', $headers);
                 $uidIdx = array_search('uid', $headers);
@@ -343,9 +349,9 @@ class ManPowerController extends Controller
                 }
             });
 
-            return back()->with('success', "Import berhasil diproses. Insert: {$insert} data baru | Update: {$update} data | Dilewati: {$skip}");
+            return back()->with('success', "Import successfully processed. Inserted: {$insert} new records | Updated: {$update} records | Skipped: {$skip}");
         } catch (\Throwable $e) {
-            return back()->with('error', 'Import gagal: ' . $e->getMessage());
+            return back()->with('error', 'Import failed: ' . $e->getMessage());
         }
     }
 }

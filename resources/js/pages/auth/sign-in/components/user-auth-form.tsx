@@ -49,8 +49,7 @@ export function UserAuthForm({ className, status, ...props }: UserAuthFormProps)
             >
               <option value="">Select Factory</option>
               <option value="Factory Klego">Factory Klego</option>
-              <option value="Factory Boyolali">Factory Boyolali</option>
-              <option value="Factory Semarang">Factory Semarang</option>
+              <option value="Factory Boyolali">Factory Sambi</option>
             </select>
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none gap-2">
               <ChevronDown className="w-3.5 h-3.5 text-slate-600" />

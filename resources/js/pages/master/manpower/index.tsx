@@ -229,7 +229,7 @@ export default function ManPowerIndex({
   const handleImportSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!importForm.data.file) {
-      toast.error('Pilih file Excel atau CSV terlebih dahulu')
+      toast.error('Please select an Excel or CSV file first')
       return
     }
 
@@ -251,8 +251,8 @@ export default function ManPowerIndex({
   }
 
   return (
-    <AuthenticatedLayout title="Man Power (FTY)">
-      <Head title="Master Man Power (FTY) - ESGI System" />
+    <AuthenticatedLayout title="Man Power (FTY)" withTopNav={false}>
+      <Head title="ESGI System" />
 
       <Main>
         {/* Page Header */}
@@ -261,18 +261,13 @@ export default function ManPowerIndex({
             <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
               <span>Master</span>
               <span>/</span>
-              <span>General</span>
-              <span>/</span>
               <span className="font-semibold text-foreground">Man Power (FTY)</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <div className="p-2 bg-blue-50 text-blue-600 rounded-lg dark:bg-blue-950 dark:text-blue-400">
-                <Users className="w-6 h-6" />
-              </div>
               <div>
                 <h1 className="text-2xl font-bold tracking-tight">Man Power (FTY)</h1>
                 <p className="text-xs text-muted-foreground">
-                  Master data karyawan pabrik dengan fitur input, export, dan import.
+                  Factory employee master data with input, export, and import features.
                 </p>
               </div>
             </div>
@@ -324,7 +319,7 @@ export default function ManPowerIndex({
           <CardHeader className="pb-3 pt-4 px-4 sm:px-6">
             <CardTitle className="text-sm font-semibold flex items-center gap-2">
               <Filter className="w-4 h-4 text-blue-600" />
-              Filter Data Man Power
+              Filter Man Power Data
             </CardTitle>
           </CardHeader>
           <CardContent className="px-4 pb-4 sm:px-6">
@@ -332,13 +327,15 @@ export default function ManPowerIndex({
               {/* Search */}
               <div className="space-y-1">
                 <Label htmlFor="search" className="text-xs text-muted-foreground">
-                  Cari NIK / Nama / UID
+                  Search NIK / Name / UID
                 </Label>
                 <div className="relative">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5">
+                    <Search className="h-4 w-4 text-muted-foreground" />
+                  </div>
                   <Input
                     id="search"
-                    placeholder="Ketik kata kunci..."
+                    placeholder="Type keywords..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-8 h-9 text-sm"
@@ -353,10 +350,10 @@ export default function ManPowerIndex({
                 </Label>
                 <Select value={selectedDept} onValueChange={setSelectedDept}>
                   <SelectTrigger id="department" className="h-9 text-sm">
-                    <SelectValue placeholder="Pilih Department" />
+                    <SelectValue placeholder="Select Department" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Semua Department</SelectItem>
+                    <SelectItem value="all">All Departments</SelectItem>
                     {departments.map((dept) => (
                       <SelectItem key={dept} value={dept}>
                         {dept}
@@ -373,10 +370,10 @@ export default function ManPowerIndex({
                 </Label>
                 <Select value={selectedLine} onValueChange={setSelectedLine}>
                   <SelectTrigger id="line" className="h-9 text-sm">
-                    <SelectValue placeholder="Pilih Line" />
+                    <SelectValue placeholder="Select Line" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Semua Line</SelectItem>
+                    <SelectItem value="all">All Lines</SelectItem>
                     {lines.map((ln) => (
                       <SelectItem key={ln} value={ln}>
                         {ln}
@@ -390,7 +387,7 @@ export default function ManPowerIndex({
               <div className="flex items-end gap-2">
                 <Button type="submit" size="sm" className="bg-blue-600 hover:bg-blue-700 h-9 flex-1">
                   <Search className="w-3.5 h-3.5 mr-1.5" />
-                  Cari
+                  Search
                 </Button>
                 <Button
                   type="button"
@@ -411,15 +408,15 @@ export default function ManPowerIndex({
         <Card className="border-slate-100 shadow-sm overflow-hidden">
           <CardHeader className="py-3.5 px-4 sm:px-6 bg-slate-50/50 border-b border-slate-100 flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-sm font-semibold">Daftar Karyawan Man Power</CardTitle>
+              <CardTitle className="text-sm font-semibold">Man Power Employee List</CardTitle>
               <CardDescription className="text-xs">
-                Total data ditemukan: <span className="font-bold text-foreground">{manPowers.total.toLocaleString()}</span> orang
+                Total records found: <span className="font-bold text-foreground">{manPowers.total.toLocaleString()}</span> employees
               </CardDescription>
             </div>
 
             {/* Per Page selector */}
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground hidden sm:inline">Tampilkan:</span>
+              <span className="text-xs text-muted-foreground hidden sm:inline">Show:</span>
               <Select
                 value={perPage}
                 onValueChange={(val) => {
@@ -456,11 +453,11 @@ export default function ManPowerIndex({
                   <TableRow>
                     <TableHead className="w-14 text-center font-bold text-xs uppercase text-slate-600">No</TableHead>
                     <TableHead className="w-36 font-bold text-xs uppercase text-slate-600">NIK</TableHead>
-                    <TableHead className="min-w-[180px] font-bold text-xs uppercase text-slate-600">Nama</TableHead>
+                    <TableHead className="min-w-[180px] font-bold text-xs uppercase text-slate-600">Name</TableHead>
                     <TableHead className="font-bold text-xs uppercase text-slate-600">Department</TableHead>
                     <TableHead className="font-bold text-xs uppercase text-slate-600">Line</TableHead>
                     <TableHead className="w-36 font-bold text-xs uppercase text-slate-600">UID</TableHead>
-                    <TableHead className="w-28 text-right font-bold text-xs uppercase text-slate-600 pr-6">Aksi</TableHead>
+                    <TableHead className="w-28 text-right font-bold text-xs uppercase text-slate-600 pr-6">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -469,10 +466,10 @@ export default function ManPowerIndex({
                       <TableCell colSpan={7} className="h-36 text-center text-muted-foreground">
                         <div className="flex flex-col items-center justify-center gap-2">
                           <Users className="w-8 h-8 text-slate-300" />
-                          <p className="text-sm">Tidak ada data man power yang ditemukan.</p>
+                          <p className="text-sm">No man power records found.</p>
                           {(searchTerm || selectedDept !== 'all' || selectedLine !== 'all') && (
                             <Button variant="link" size="sm" onClick={handleResetFilter}>
-                              Bersihkan filter pencarian
+                              Clear search filters
                             </Button>
                           )}
                         </div>
@@ -493,14 +490,14 @@ export default function ManPowerIndex({
                             {item.name}
                           </TableCell>
                           <TableCell>
-                            <Badge variant="outline" className="font-medium text-xs bg-slate-100/80 text-slate-700 border-slate-200">
+                            <Badge variant="secondary" className="font-medium text-sm text-foreground">
                               {item.department || '-'}
                             </Badge>
                           </TableCell>
                           <TableCell>
-                            <span className="text-xs font-medium text-slate-600 bg-blue-50/70 text-blue-700 px-2 py-0.5 rounded border border-blue-100">
+                            <Badge variant="secondary" className="font-medium text-sm text-foreground">
                               {item.line || '-'}
-                            </span>
+                            </Badge>
                           </TableCell>
                           <TableCell className="font-mono text-xs text-muted-foreground">
                             {item.uid || '-'}
@@ -521,7 +518,7 @@ export default function ManPowerIndex({
                                 size="icon"
                                 onClick={() => setDeletingId(item.id)}
                                 className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
-                                title="Hapus Man Power"
+                                title="Delete Man Power"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </Button>
@@ -539,9 +536,9 @@ export default function ManPowerIndex({
             {manPowers.total > 0 && (
               <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-slate-100 bg-slate-50/30">
                 <div className="text-xs text-muted-foreground">
-                  Menampilkan <span className="font-semibold text-foreground">{manPowers.from || 0}</span> sampai{' '}
-                  <span className="font-semibold text-foreground">{manPowers.to || 0}</span> dari{' '}
-                  <span className="font-semibold text-foreground">{manPowers.total.toLocaleString()}</span> data
+                  Showing <span className="font-semibold text-foreground">{manPowers.from || 0}</span> to{' '}
+                  <span className="font-semibold text-foreground">{manPowers.to || 0}</span> of{' '}
+                  <span className="font-semibold text-foreground">{manPowers.total.toLocaleString()}</span> entries
                 </div>
 
                 <div className="flex items-center gap-1">
@@ -569,11 +566,10 @@ export default function ManPowerIndex({
                         variant={link.active ? 'default' : 'outline'}
                         size="sm"
                         onClick={() => link.url && router.get(link.url, {}, { preserveState: true })}
-                        className={`h-8 px-2.5 text-xs ${
-                          link.active
-                            ? 'bg-blue-600 text-white hover:bg-blue-700'
-                            : 'border-slate-200 text-slate-700 hover:bg-slate-100'
-                        }`}
+                        className={`h-8 px-2.5 text-xs ${link.active
+                          ? 'bg-blue-600 text-white hover:bg-blue-700'
+                          : 'border-slate-200 text-slate-700 hover:bg-slate-100'
+                          }`}
                       >
                         {isPrev ? 'Prev' : isNext ? 'Next' : link.label}
                       </Button>
@@ -592,37 +588,37 @@ export default function ManPowerIndex({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Users className="w-5 h-5 text-blue-600" />
-              {editingItem ? 'Edit Data Man Power' : 'Tambah Data Man Power'}
+              {editingItem ? 'Edit Man Power' : 'Add Man Power'}
             </DialogTitle>
             <DialogDescription>
               {editingItem
-                ? 'Perbarui detail data karyawan man power di bawah ini.'
-                : 'Lengkapi formulir untuk menambahkan karyawan man power baru.'}
+                ? 'Update employee details in the form below.'
+                : 'Fill in the form to register a new factory employee.'}
             </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleFormSubmit} className="space-y-4 pt-2">
             <div className="space-y-1.5">
               <Label htmlFor="form-nik" className="text-xs font-semibold">
-                NIK (Nomor Induk Karyawan) <span className="text-red-500">*</span>
+                NIK (Employee ID) <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="form-nik"
-                placeholder="Contoh: 141400262"
+                placeholder="e.g. 141400262"
                 value={form.data.nik}
                 onChange={(e) => form.setData('nik', e.target.value)}
-                className="h-9"
+                className="h-9 font-mono"
               />
               {form.errors.nik && <p className="text-xs text-red-500">{form.errors.nik}</p>}
             </div>
 
             <div className="space-y-1.5">
               <Label htmlFor="form-name" className="text-xs font-semibold">
-                Nama Lengkap <span className="text-red-500">*</span>
+                Full Name <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="form-name"
-                placeholder="Nama karyawan..."
+                placeholder="Employee full name..."
                 value={form.data.name}
                 onChange={(e) => form.setData('name', e.target.value)}
                 className="h-9"
@@ -637,7 +633,7 @@ export default function ManPowerIndex({
                 </Label>
                 <Input
                   id="form-department"
-                  placeholder="Contoh: SEWING, QC"
+                  placeholder="e.g. SEWING, QC"
                   value={form.data.department}
                   onChange={(e) => form.setData('department', e.target.value)}
                   className="h-9"
@@ -653,7 +649,7 @@ export default function ManPowerIndex({
                 </Label>
                 <Input
                   id="form-line"
-                  placeholder="Contoh: Line 1 / -"
+                  placeholder="e.g. Line 1 / -"
                   value={form.data.line}
                   onChange={(e) => form.setData('line', e.target.value)}
                   className="h-9"
@@ -668,7 +664,7 @@ export default function ManPowerIndex({
               </Label>
               <Input
                 id="form-uid"
-                placeholder="Contoh: 0009392506"
+                placeholder="e.g. 0009392506"
                 value={form.data.uid}
                 onChange={(e) => form.setData('uid', e.target.value)}
                 className="h-9 font-mono"
@@ -683,7 +679,7 @@ export default function ManPowerIndex({
                 onClick={() => setIsFormOpen(false)}
                 disabled={form.processing}
               >
-                Batal
+                Cancel
               </Button>
               <Button
                 type="submit"
@@ -691,7 +687,7 @@ export default function ManPowerIndex({
                 className="bg-blue-600 hover:bg-blue-700 text-white"
               >
                 {form.processing && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                {editingItem ? 'Simpan Perubahan' : 'Tambah Karyawan'}
+                {editingItem ? 'Save Changes' : 'Add Employee'}
               </Button>
             </DialogFooter>
           </form>
@@ -704,10 +700,10 @@ export default function ManPowerIndex({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
               <FileSpreadsheet className="w-5 h-5" />
-              Import Data Man Power
+              Import Man Power Data
             </DialogTitle>
             <DialogDescription>
-              Upload file Excel (.xlsx, .xls) atau CSV (.csv) untuk menambah atau memperbarui data secara massal.
+              Upload an Excel (.xlsx, .xls) or CSV (.csv) file to bulk add or update records.
             </DialogDescription>
           </DialogHeader>
 
@@ -715,19 +711,19 @@ export default function ManPowerIndex({
             <div className="rounded-lg bg-slate-50 p-3 border border-slate-200 text-xs text-slate-600 space-y-1.5">
               <div className="font-semibold text-slate-700 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                Format Kolom yang Dibutuhkan:
+                Required Column Format:
               </div>
               <p className="font-mono bg-white p-1.5 rounded border border-slate-200 text-[11px]">
-                NIK ; Nama ; Department ; Line ; UID
+                NIK ; Name ; Department ; Line ; UID
               </p>
               <p className="text-slate-500">
-                Jika NIK sudah ada di database, data akan diperbarui secara otomatis.
+                If the NIK already exists in the database, the record will be updated automatically.
               </p>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="import-file" className="text-xs font-semibold">
-                Pilih File Spreadsheet:
+                Choose Spreadsheet File:
               </Label>
               <Input
                 id="import-file"
@@ -747,7 +743,7 @@ export default function ManPowerIndex({
             <DialogFooter className="pt-2 flex items-center justify-between sm:justify-between w-full">
               <a href={route('man-power.template')} download className="text-xs text-blue-600 hover:underline flex items-center gap-1">
                 <Download className="w-3.5 h-3.5" />
-                Download Template CSV
+                Download CSV Template
               </a>
 
               <div className="flex items-center gap-2">
@@ -758,7 +754,7 @@ export default function ManPowerIndex({
                   onClick={() => setIsImportOpen(false)}
                   disabled={importForm.processing}
                 >
-                  Batal
+                  Cancel
                 </Button>
                 <Button
                   type="submit"
@@ -767,7 +763,7 @@ export default function ManPowerIndex({
                   className="bg-emerald-600 hover:bg-emerald-700 text-white"
                 >
                   {importForm.processing && <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />}
-                  Proses Import
+                  Process Import
                 </Button>
               </div>
             </DialogFooter>
@@ -781,19 +777,19 @@ export default function ManPowerIndex({
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2 text-red-600">
               <AlertCircle className="w-5 h-5" />
-              Konfirmasi Hapus Data
+              Confirm Delete
             </AlertDialogTitle>
             <AlertDialogDescription>
-              Apakah Anda yakin ingin menghapus data karyawan ini? Tindakan ini tidak dapat dibatalkan.
+              Are you sure you want to delete this employee record? This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Batal</AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteConfirm}
               className="bg-red-600 hover:bg-red-700 text-white"
             >
-              Ya, Hapus Data
+              Yes, Delete Record
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
