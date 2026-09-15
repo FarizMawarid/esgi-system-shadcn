@@ -251,7 +251,7 @@ export default function ManPowerIndex({
   }
 
   return (
-    <AuthenticatedLayout title="Man Power (FTY)" withTopNav={false}>
+    <AuthenticatedLayout title="Man Power (Factory)" withTopNav={false}>
       <Head title="ESGI System" />
 
       <Main>
@@ -261,11 +261,11 @@ export default function ManPowerIndex({
             <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
               <span>Master</span>
               <span>/</span>
-              <span className="font-semibold text-foreground">Man Power (FTY)</span>
+              <span className="font-semibold text-foreground">Man Power (Factory)</span>
             </div>
             <div className="flex items-center gap-2.5">
               <div>
-                <h1 className="text-2xl font-bold tracking-tight">Man Power (FTY)</h1>
+                <h1 className="text-2xl font-bold tracking-tight">Man Power (Factory)</h1>
                 <p className="text-xs text-muted-foreground">
                   Factory employee master data with input, export, and import features.
                 </p>

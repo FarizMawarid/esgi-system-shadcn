@@ -67,10 +67,16 @@ export const sidebarData: SidebarData = {
       titleKey: 'nav.master_data',
       items: [
         {
-          title: 'Man Power (FTY)',
+          title: 'Man Power (Factory)',
           titleKey: 'nav.manpower',
           url: '/mod-master/manpower',
           icon: IconUsers,
+        },
+        {
+          title: 'Man Power (Jumper)',
+          titleKey: 'nav.manpower_jumper',
+          url: '/mod-master/manpower-jumper',
+          icon: IconRepeat,
         },
       ],
     },

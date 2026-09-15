@@ -18,4 +18,9 @@ class ManPower extends Model
         'line',
         'uid',
     ];
+
+    public function jumper()
+    {
+        return $this->hasOne(ManPowerJumper::class, 'man_power_id');
+    }
 }

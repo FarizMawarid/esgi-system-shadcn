@@ -17,6 +17,7 @@ Route::get('/503', fn () => Inertia::render('errors/maintenance-error'));
 Route::get('/pricing', fn () => Inertia::render('pricing/index'));
 
 use App\Http\Controllers\ManPowerController;
+use App\Http\Controllers\ManPowerJumperController;
 
 Route::group(['prefix' => '/dashboard', 'middleware' => ['auth', 'verified']], function () {
     require __DIR__.'/dashboard.php';
@@ -33,7 +34,20 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [ManPowerController::class, 'destroy'])->name('man-power.destroy');
     });
 
+    Route::prefix('mod-master/manpower-jumper')->group(function () {
+        Route::get('/', [ManPowerJumperController::class, 'index'])->name('man-power-jumper.index');
+        Route::post('/', [ManPowerJumperController::class, 'store'])->name('man-power-jumper.store');
+        Route::get('/template', [ManPowerJumperController::class, 'downloadTemplate'])->name('man-power-jumper.template');
+        Route::get('/export', [ManPowerJumperController::class, 'export'])->name('man-power-jumper.export');
+        Route::post('/import', [ManPowerJumperController::class, 'import'])->name('man-power-jumper.import');
+        Route::get('/search-manpower', [ManPowerJumperController::class, 'searchManPower'])->name('man-power-jumper.search-manpower');
+        Route::put('/{id}/mutasi', [ManPowerJumperController::class, 'updateMutasi'])->name('man-power-jumper.mutasi');
+        Route::put('/{id}', [ManPowerJumperController::class, 'update'])->name('man-power-jumper.update');
+        Route::delete('/{id}', [ManPowerJumperController::class, 'destroy'])->name('man-power-jumper.destroy');
+    });
+
     Route::get('/master/manpower', fn () => redirect()->route('man-power.index'));
+    Route::get('/master/manpower-jumper', fn () => redirect()->route('man-power-jumper.index'));
 });
 
 require __DIR__.'/auth.php';
