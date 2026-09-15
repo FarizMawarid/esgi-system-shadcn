@@ -1,75 +1,52 @@
-import ViteLogo from '@/assets/vite.svg'
 import { UserAuthForm } from './components/user-auth-form'
-import {Head, Link} from '@inertiajs/react'
-import {TermPrivacyLink, SocialButtons} from "@/pages/auth/components";
+import { Head } from '@inertiajs/react'
 
 export default function SignIn2({
-    status,
-    canResetPassword,
-  }: {
+  status,
+  canResetPassword,
+}: {
   status?: string;
   canResetPassword: boolean;
 }) {
   return (
     <>
-      <Head title='Login'/>
-      <div
-        className='container relative grid h-svh flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0'>
-        <div className='relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex'>
-          <div className='absolute inset-0 bg-zinc-900'/>
-          <div className='relative z-20 flex items-center text-lg font-medium'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              className='mr-2 h-6 w-6'
-            >
-              <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3'/>
-            </svg>
-            Shadcn Admin
+      <Head title="Login - ESGI SYSTEM" />
+      <div className="min-h-screen w-full bg-[#f4f7fb] flex items-center justify-center p-4 sm:p-6">
+        {/* Main Card Container */}
+        <div className="w-full max-w-[880px] bg-white rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.06)] border border-slate-100/80 flex flex-col md:flex-row overflow-hidden">
+          
+          {/* Left Side: Brand Logo */}
+          <div className="w-full md:w-1/2 flex items-center justify-center p-8 sm:p-12 md:border-r border-slate-100">
+            <div className="flex items-center gap-3 sm:gap-4 select-none">
+              <img
+                src="/images/esgi-globe.png"
+                alt="ESGI Globe Logo"
+                className="w-28 h-28 sm:w-36 sm:h-36 object-contain"
+              />
+              <div className="flex flex-col font-black tracking-tight leading-none text-[#1b74e4]">
+                <span className="text-3xl sm:text-4xl tracking-normal">ESGI</span>
+                <span className="text-3xl sm:text-4xl tracking-normal text-[#2b7cf0]">SYSTEM</span>
+              </div>
+            </div>
           </div>
 
-          <img
-            src={ViteLogo}
-            className='relative m-auto'
-            width={301}
-            height={60}
-            alt='Vite'
-          />
-
-          <div className='relative z-20 mt-auto'>
-            <blockquote className='space-y-2'>
-              <p className='text-lg'>
-                &ldquo;This template has saved me countless hours of work and
-                helped me deliver stunning designs to my clients faster than ever
-                before.&rdquo;
-              </p>
-              <footer className='text-sm'>John Doe</footer>
-            </blockquote>
-          </div>
-        </div>
-        <div className='lg:p-8'>
-          <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[350px]'>
-            <div className='flex flex-col space-y-2 text-left'>
-              <h1 className='text-2xl font-semibold tracking-tight'>Login</h1>
-              <p className='text-sm text-muted-foreground'>
-                Enter your email and password below <br/>
-                to log into your account, do not have an account?
-                <Link
-                  className='underline underline-offset-4 hover:text-primary'
-                  href={route('register')}>Register</Link>
+          {/* Right Side: Login Form */}
+          <div className="w-full md:w-1/2 flex flex-col justify-center p-8 sm:p-12">
+            <div className="mb-6 text-center">
+              <h2 className="text-2xl font-bold tracking-tight text-slate-800">
+                Welcome Back
+              </h2>
+              <p className="text-xs text-slate-400 mt-1.5">
+                Sign in to start your session
               </p>
             </div>
+
             <UserAuthForm canResetPassword={canResetPassword} status={status} />
-            <TermPrivacyLink privacyLink={'#'} termLink={'#'} />
-            <SocialButtons isLoading={false}/>
           </div>
+
         </div>
       </div>
     </>
   )
 }
+
